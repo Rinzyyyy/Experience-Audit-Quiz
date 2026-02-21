@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useReducer, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { quizReducer, initialState } from './store/quizReducer';
+import { useQuizTimer } from './hooks/useQuizTimer';
+import { StartScreen } from './components/StartScreen';
+import { QuizScreen } from './components/QuizScreen';
+import { ResultsScreen } from './components/ResultsScreen';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [state, dispatch] = useReducer(quizReducer, initialState);
+
+  useQuizTimer(state, dispatch);
+
+  const handleStart = useCallback(() => dispatch({ type: 'START_QUIZ' }), []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="w-full min-h-screen flex items-center justify-center px-4 py-12">
+      <AnimatePresence mode="wait">
+        {state.screen === 'start' && (
+          <StartScreen key="start" onStart={handleStart} />
+        )}
+        {state.screen === 'quiz' && (
+          <QuizScreen key={`quiz-${state.currentIndex}`} state={state} dispatch={dispatch} />
+        )}
+        {state.screen === 'results' && (
+          <ResultsScreen key="results" state={state} dispatch={dispatch} />
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }
-
-export default App
