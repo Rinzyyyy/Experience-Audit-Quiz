@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
 import { quizReducer, initialState } from './store/quizReducer';
 import { useQuizTimer } from './hooks/useQuizTimer';
 import { StartScreen } from './components/StartScreen';

@@ -1,6 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Award, CheckCircle2, Clock, RotateCcw, XCircle } from 'lucide-react';
-import { questions } from '../data/questions';
 import { cardVariants, fadeUp } from '../lib/motion';
 import type { QuizState, Action } from '../types/quiz';
 
@@ -18,8 +17,8 @@ function gradeFor(percent: number) {
 }
 
 export function ResultsScreen({ state, dispatch }: ResultsScreenProps) {
-  const { score, userAnswers } = state;
-  const total = questions.length;
+  const { score, userAnswers, quizQuestions } = state;
+  const total = quizQuestions.length;
   const percent = Math.round((score / total) * 100);
   const grade = gradeFor(percent);
 
@@ -66,7 +65,7 @@ export function ResultsScreen({ state, dispatch }: ResultsScreenProps) {
         </p>
 
         <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
-          {questions.map((q, i) => {
+          {quizQuestions.map((q, i) => {
             const answered = userAnswers[i];
             const isCorrect = answered === q.correctAnswer;
             const timedOut = answered === null;

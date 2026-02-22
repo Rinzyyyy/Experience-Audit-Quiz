@@ -1,3 +1,5 @@
+import type { Question } from '../data/questions';
+
 export type Screen = 'start' | 'quiz' | 'results';
 
 export interface QuizState {
@@ -8,6 +10,7 @@ export interface QuizState {
   isAnswered: boolean;
   reflectionVisible: boolean;
   timeLeft: number;
+  quizQuestions: Question[];
 }
 
 export type Action =

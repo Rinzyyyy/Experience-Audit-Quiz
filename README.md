@@ -13,5 +13,5 @@ Built to combat the forgetting curve, this tool provides a systematic way to aud
 * **Framework:** React 19+ (Vite)
 * **Language:** TypeScript
 * **Styling:** Tailwind CSS 
-* **State Management:** Zustand 
 * **Storage:** LocalStorage (to persist audit history)
+* **Animation:** Motion

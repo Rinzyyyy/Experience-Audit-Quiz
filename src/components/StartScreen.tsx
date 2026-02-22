@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ChevronRight, Target } from 'lucide-react';
 import { questions } from '../data/questions';
 import { cardVariants } from '../lib/motion';

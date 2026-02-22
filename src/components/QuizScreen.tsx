@@ -1,7 +1,6 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Clock, Lightbulb } from 'lucide-react';
-import { questions } from '../data/questions';
-import { TIMER_DURATION } from '../store/quizReducer';
+import { TIMER_DURATION, QUIZ_SIZE } from '../store/quizReducer';
 import { cardVariants } from '../lib/motion';
 import type { QuizState, Action } from '../types/quiz';
 import { OptionButton } from './OptionButton';
@@ -14,10 +13,11 @@ interface QuizScreenProps {
 }
 
 export function QuizScreen({ state, dispatch }: QuizScreenProps) {
-  const { currentIndex, isAnswered, reflectionVisible, timeLeft, userAnswers } = state;
-  const question = questions[currentIndex];
-  const isLastQuestion = currentIndex === questions.length - 1;
-  const progressPercent = (currentIndex / questions.length) * 100;
+  const { currentIndex, isAnswered, reflectionVisible, timeLeft, userAnswers, quizQuestions } = state;
+  const question = quizQuestions[currentIndex];
+  const isLastQuestion = currentIndex === QUIZ_SIZE - 1;
+  const progressPercent = (currentIndex / QUIZ_SIZE) * 100;
+  const isTimedOut = isAnswered && userAnswers[currentIndex] === null;
 
   return (
     <motion.div
@@ -45,7 +45,7 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
             </span>
             <span className="text-xs font-bold text-blue-400">
               {currentIndex + 1}
-              <span className="text-slate-600"> / {questions.length}</span>
+              <span className="text-slate-600"> / {QUIZ_SIZE}</span>
             </span>
           </div>
           <TimerRing timeLeft={timeLeft} />
@@ -76,6 +76,22 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
           ))}
         </div>
 
+        {/* Timeout notice — shown when time ran out */}
+        <AnimatePresence>
+          {isTimedOut && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-slate-700/50 border border-slate-600 rounded-xl p-4 flex items-center gap-3 mb-4"
+            >
+              <Clock className="w-4 h-4 text-slate-400 shrink-0" />
+              <p className="text-slate-400 text-sm">
+                Time's up — the correct answer is highlighted above.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Personal reflection — slides in after answering */}
         <AnimatePresence>
           {reflectionVisible && (
@@ -83,7 +99,7 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto', transition: { duration: 0.35, ease: 'easeOut' } }}
               exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden"
+              className="overflow-hidden mb-4"
             >
               <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
                 <div className="flex items-center gap-2 mb-2">
@@ -96,22 +112,6 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
                   "{question.personalReflection}"
                 </p>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Timeout notice */}
-        <AnimatePresence>
-          {isAnswered && !reflectionVisible && (
-            <motion.div
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-slate-700/50 border border-slate-600 rounded-xl p-4 flex items-center gap-3"
-            >
-              <Clock className="w-4 h-4 text-slate-400 shrink-0" />
-              <p className="text-slate-400 text-sm">
-                Time's up — the correct answer is highlighted above.
-              </p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -130,5 +130,4 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
   );
 }
 
-// Keep TIMER_DURATION in scope for the progress ring label
 export { TIMER_DURATION };
