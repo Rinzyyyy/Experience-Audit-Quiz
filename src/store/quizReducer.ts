@@ -75,6 +75,7 @@ export function quizReducer(state: QuizState, action: Action): QuizState {
     case "NEXT_QUESTION": {
       const nextIndex = state.currentIndex + 1;
       if (nextIndex >= QUIZ_SIZE) return { ...state, screen: "results" };
+
       return {
         ...state,
         currentIndex: nextIndex,

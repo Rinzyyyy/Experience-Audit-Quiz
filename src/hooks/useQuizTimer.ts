@@ -5,8 +5,9 @@ export function useQuizTimer(
   state: QuizState,
   dispatch: React.Dispatch<Action>,
 ) {
+  // Keep a ref so the interval callback always calls the latest dispatch
+  // without needing it in the dependency array (avoids resetting the interval).
   const dispatchRef = useRef(dispatch);
-
   useEffect(() => {
     dispatchRef.current = dispatch;
   });
@@ -14,6 +15,7 @@ export function useQuizTimer(
   useEffect(() => {
     if (state.screen !== 'quiz' || state.isAnswered) return;
 
+    // Time already expired when this effect runs .
     if (state.timeLeft <= 0) {
       dispatchRef.current({ type: 'TIMEOUT' });
       return;
