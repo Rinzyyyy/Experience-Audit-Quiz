@@ -44,11 +44,12 @@ export function HomePage() {
     <div className="w-full min-h-screen flex items-center justify-center px-4 py-12">
       <Link
         to="/stats"
-        className="fixed top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-400 hover:text-white hover:border-slate-500 transition-colors text-xs font-semibold tracking-wide"
+        className="fixed top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-mauve-800 border border-slate-700 text-olive-300 hover:text-white hover:border-slate-500 transition-colors text-xs font-semibold tracking-wide"
       >
         <BarChart2 className="w-3.5 h-3.5" />
         Stats
       </Link>
+      
       <AnimatePresence mode="wait">
         {state.screen === 'start' && (
           <StartScreen key="start" onStart={handleStart} />

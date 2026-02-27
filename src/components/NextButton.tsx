@@ -1,5 +1,5 @@
-import { motion } from 'motion/react';
-import { ArrowRight, Flag } from 'lucide-react';
+import { motion } from "motion/react";
+import { ArrowRight, Flag } from "lucide-react";
 
 interface NextButtonProps {
   isLastQuestion: boolean;
@@ -17,7 +17,7 @@ export function NextButton({ isLastQuestion, onClick }: NextButtonProps) {
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.97 }}
         onClick={onClick}
-        className="w-full bg-blue-500 hover:bg-blue-400 text-white font-semibold py-3.5 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm tracking-wide"
+        className="w-full cursor-pointer bg-olive-400 hover:bg-violet-200 text-olive-900 font-semibold py-3.5 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm tracking-wide"
       >
         {isLastQuestion ? (
           <>

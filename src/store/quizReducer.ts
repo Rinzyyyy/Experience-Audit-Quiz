@@ -1,20 +1,45 @@
 import { questions } from "../data/questions";
 import type { QuizState, Action } from "../types/quiz";
+import { loadQuestionStats } from "../lib/storage";
 
 export const TIMER_DURATION = 30;
 export const QUIZ_SIZE = 5;
+export const MASTERY_THRESHOLD = 3;
 
 // Partial Fisher-Yates shuffle: swap specific number of random picks to the front, then slice.
 // only iterates as many times as questions we need.
 function pickRandomQuestions() {
+  const masteredIds = new Set(getMasteredQuestions());
   const pool = [...questions];
-  for (let i = 0; i < QUIZ_SIZE; i++) {
-    // j is a random index from the unpicked remainder (from i to pool.length-i-1)
+  let end = pool.length - 1;
+
+  for (let i = 0; i < QUIZ_SIZE && i <= end; i++) {
+    // j is a random index from the unpicked remainder (from i to pool.length-1)
     const j = i + Math.floor(Math.random() * (pool.length - i));
+
+    // has is better than includes because it's O(1) instead of O(n)
+    if (questions.length - masteredIds.size > QUIZ_SIZE && masteredIds.has(pool[j].id)) {
+      // Exile this question to beyond `end` so it's never picked again
+      [pool[j], pool[end]] = [pool[end], pool[j]];
+      end--;
+      i--;
+      continue;
+    }
     // Swap the elements at index i and j
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
   return pool.slice(0, QUIZ_SIZE);
+}
+
+// Returns questions the user has answered correctly at least MASTERY_THRESHOLD times.
+function getMasteredQuestions() {
+  const stats = loadQuestionStats();
+  return Object.keys(stats).reduce((acc, q) => {
+    if (stats[Number(q)]?.correct >= MASTERY_THRESHOLD) {
+      acc.push(Number(q));
+    }
+    return acc;
+  }, [] as number[]);
 }
 
 export const initialState: QuizState = {
