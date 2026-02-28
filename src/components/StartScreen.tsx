@@ -4,7 +4,7 @@ import { cardVariants } from "../lib/motion";
 import { QUIZ_SIZE } from "../lib/quiz";
 
 interface StartScreenProps {
-  onStart: () => void;
+  onStart?: () => void;
 }
 
 export function StartScreen({ onStart }: StartScreenProps) {
@@ -58,12 +58,13 @@ export function StartScreen({ onStart }: StartScreenProps) {
       </div>
 
       <motion.button
+        disabled={!onStart}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={onStart}
         className="w-full cursor-pointer bg-olive-400 hover:bg-violet-200 text-olive-900 font-bold py-4 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 text-sm tracking-wide"
       >
-        Start Audit
+        {onStart ? "Start Audit" : "You have mastered all questions!"}
         <ChevronRight className="w-4 h-4" />
       </motion.button>
     </motion.div>

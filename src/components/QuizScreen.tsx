@@ -1,11 +1,10 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { Clock, Lightbulb } from 'lucide-react';
-import { TIMER_DURATION, QUIZ_SIZE } from '../store/quizReducer';
-import { cardVariants } from '../lib/motion';
-import type { QuizState, Action } from '../types/quiz';
-import { OptionButton } from './OptionButton';
-import { TimerRing } from './TimerRing';
-import { NextButton } from './NextButton';
+import { motion, AnimatePresence } from "motion/react";
+import { Clock, Lightbulb } from "lucide-react";
+import { cardVariants } from "../lib/motion";
+import type { QuizState, Action } from "../types/quiz";
+import { OptionButton } from "./OptionButton";
+import { TimerRing } from "./TimerRing";
+import { NextButton } from "./NextButton";
 
 interface QuizScreenProps {
   state: QuizState;
@@ -13,10 +12,17 @@ interface QuizScreenProps {
 }
 
 export function QuizScreen({ state, dispatch }: QuizScreenProps) {
-  const { currentIndex, isAnswered, reflectionVisible, timeLeft, userAnswers, quizQuestions } = state;
+  const {
+    currentIndex,
+    isAnswered,
+    reflectionVisible,
+    timeLeft,
+    userAnswers,
+    quizQuestions,
+  } = state;
   const question = quizQuestions[currentIndex];
-  const isLastQuestion = currentIndex === QUIZ_SIZE - 1;
-  const progressPercent = (currentIndex / QUIZ_SIZE) * 100;
+  const isLastQuestion = currentIndex === quizQuestions.length - 1;
+  const progressPercent = ((currentIndex + 1) / quizQuestions.length) * 100;
   const isTimedOut = isAnswered && userAnswers[currentIndex] === null;
 
   return (
@@ -32,7 +38,7 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
         <motion.div
           className="h-full bg-blue-500"
           animate={{ width: `${progressPercent}%` }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         />
       </div>
 
@@ -45,7 +51,7 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
             </span>
             <span className="text-xs font-bold text-blue-400">
               {currentIndex + 1}
-              <span className="text-slate-600"> / {QUIZ_SIZE}</span>
+              <span className="text-slate-600"> / {quizQuestions.length}</span>
             </span>
           </div>
           <TimerRing timeLeft={timeLeft} />
@@ -71,7 +77,9 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
               isAnswered={isAnswered}
               isSelected={userAnswers[currentIndex] === option}
               isCorrect={option === question.correctAnswer}
-              onClick={() => dispatch({ type: 'SELECT_ANSWER', payload: option })}
+              onClick={() =>
+                dispatch({ type: "SELECT_ANSWER", payload: option })
+              }
             />
           ))}
         </div>
@@ -97,7 +105,11 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
           {reflectionVisible && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto', transition: { duration: 0.35, ease: 'easeOut' } }}
+              animate={{
+                opacity: 1,
+                height: "auto",
+                transition: { duration: 0.35, ease: "easeOut" },
+              }}
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden mb-4"
             >
@@ -121,7 +133,7 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
           {isAnswered && (
             <NextButton
               isLastQuestion={isLastQuestion}
-              onClick={() => dispatch({ type: 'NEXT_QUESTION' })}
+              onClick={() => dispatch({ type: "NEXT_QUESTION" })}
             />
           )}
         </AnimatePresence>
@@ -129,5 +141,3 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
     </motion.div>
   );
 }
-
-export { TIMER_DURATION };

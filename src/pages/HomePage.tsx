@@ -38,6 +38,7 @@ export function HomePage() {
         })),
       );
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.screen]);
 
   return (
@@ -52,7 +53,7 @@ export function HomePage() {
 
       <AnimatePresence mode="wait">
         {state.screen === "start" && (
-          <StartScreen key="start" onStart={handleStart} />
+          <StartScreen key="start" onStart={activePool.length > 0 ? handleStart : undefined} />
         )}
         {state.screen === "quiz" && (
           <QuizScreen

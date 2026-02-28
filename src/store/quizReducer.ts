@@ -1,7 +1,5 @@
-import { pickRandomQuestions } from "../lib/quiz";
+import { pickRandomQuestions, TIMER_DURATION } from "../lib/quiz";
 import type { QuizState, Action } from "../types/quiz";
-
-export const TIMER_DURATION = 30;
 
 export const initialState: QuizState = {
   screen: "start",
@@ -48,14 +46,7 @@ export function quizReducer(state: QuizState, action: Action): QuizState {
 
     case "TIMEOUT": {
       if (state.isAnswered) return state;
-      const next = [...state.userAnswers];
-      next[state.currentIndex] = null;
-      return {
-        ...state,
-        isAnswered: true,
-        reflectionVisible: true,
-        userAnswers: next,
-      };
+      return { ...state, isAnswered: true, reflectionVisible: true };
     }
 
     case "NEXT_QUESTION": {

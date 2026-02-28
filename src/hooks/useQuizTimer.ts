@@ -14,8 +14,6 @@ export function useQuizTimer(
 
   useEffect(() => {
     if (state.screen !== 'quiz' || state.isAnswered) return;
-
-    // Time already expired when this effect runs .
     if (state.timeLeft <= 0) {
       dispatchRef.current({ type: 'TIMEOUT' });
       return;
