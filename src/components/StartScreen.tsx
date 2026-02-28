@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { ChevronRight, Ghost } from "lucide-react";
 import { cardVariants } from "../lib/motion";
-import { QUIZ_SIZE } from "../store/quizReducer";
+import { QUIZ_SIZE } from "../lib/quiz";
 
 interface StartScreenProps {
   onStart: () => void;

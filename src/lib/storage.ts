@@ -1,5 +1,5 @@
 const HISTORY_KEY = "eaq_history";
-const QUESTION_STATS_KEY = "eaq_question_stats";
+const PROGRESS_KEY = "eaq_progress";
 
 export interface QuizRecord {
   date: string;
@@ -7,12 +7,12 @@ export interface QuizRecord {
   correct: number;
 }
 
-export interface QuestionStat {
+export interface QuizProgress {
   correct: number;
   incorrect: number;
 }
 
-export type QuestionStatsMap = Record<number, QuestionStat>;
+export type QuizProgressMap = Record<number, QuizProgress>;
 
 export function loadHistory(): QuizRecord[] {
   try {
@@ -24,9 +24,9 @@ export function loadHistory(): QuizRecord[] {
   }
 }
 
-export function loadQuestionStats(): QuestionStatsMap {
+export function loadQuizProgress(): QuizProgressMap {
   try {
-    const raw = localStorage.getItem(QUESTION_STATS_KEY);
+    const raw = localStorage.getItem(PROGRESS_KEY);
     return raw ? JSON.parse(raw) : {};
   } catch (error) {
     console.error("Error loading question stats:", error);
@@ -44,19 +44,9 @@ export function saveRecord(record: QuizRecord): void {
   }
 }
 
-export function updateQuestionStats(
-  answers: { id: number; correct: boolean }[],
-): void {
+export function saveProgress(progress: QuizProgressMap): void {
   try {
-    const stats = loadQuestionStats();
-    for (const { id, correct } of answers) {
-      const prev = stats[id] ?? { correct: 0, incorrect: 0 };
-      stats[id] = {
-        correct: prev.correct + (correct ? 1 : 0),
-        incorrect: prev.incorrect + (correct ? 0 : 1),
-      };
-    }
-    localStorage.setItem(QUESTION_STATS_KEY, JSON.stringify(stats));
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
   } catch (error) {
     console.error("Error updating question stats:", error);
   }

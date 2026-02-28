@@ -11,10 +11,11 @@ export interface QuizState {
   reflectionVisible: boolean;
   timeLeft: number;
   quizQuestions: Question[];
+
 }
 
 export type Action =
-  | { type: 'START_QUIZ' }
+  | { type: 'START_QUIZ'; payload: Question[] }
   | { type: 'SELECT_ANSWER'; payload: string }
   | { type: 'TICK' }
   | { type: 'TIMEOUT' }
