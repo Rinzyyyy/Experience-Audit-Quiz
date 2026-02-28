@@ -1,5 +1,6 @@
 import { Clock } from 'lucide-react';
-import { TIMER_DURATION } from '../store/quizReducer';
+import { TIMER_DURATION } from '../lib/quiz';
+
 
 interface TimerRingProps {
   timeLeft: number;
