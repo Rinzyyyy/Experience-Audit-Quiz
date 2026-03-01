@@ -167,5 +167,70 @@ export const questions: Question[] = [
     "correctAnswer": "An HttpOnly, Secure cookie",
     "personalReflection": "If a script can't access the cookie (HttpOnly), an XSS attacker can't steal your session token. Security is always about layers of defense.",
     "tag": "JWT"
+  },
+  {
+    "id": 21,
+    "question": "Where is the most secure place to define the CSP 'Acceptable Domains' list for a production React application?",
+    "options": [
+      "In the Redux store or React Context",
+      "In the HTTP response header sent by the server",
+      "Inside a hidden <div> tag in the index.html",
+      "In the package.json file of the project"
+    ],
+    "correctAnswer": "In the HTTP response header sent by the server",
+    "personalReflection": "Setting it at the server level ensures the policy is immutable and cannot be tampered with by client-side scripts.",
+    "tag": "CSP"
+  },
+  {
+    "id": 22,
+    "question": "If a React app is loaded from 'myapp.com' and tries to fetch data from 'api.helper.com' without it being in the 'connect-src' directive, what happens?",
+    "options": [
+      "The server will send a 404 error",
+      "The browser will allow it but show a warning",
+      "The browser will block the request before it leaves the network layer",
+      "The data will be fetched but encrypted so React cannot read it"
+    ],
+    "correctAnswer": "The browser will block the request before it leaves the network layer",
+    "personalReflection": "CSP is a 'pre-flight' gatekeeper; it kills unauthorized outgoing requests immediately.",
+    "tag": "CSP"
+  },
+  {
+    "id": 23,
+    "question": "An attacker manages to inject a <script> tag into your React DOM via a database vulnerability. How does CSP stop this XSS attack?",
+    "options": [
+      "By deleting the script tag from the HTML automatically",
+      "By checking the script source against the 'script-src' whitelist",
+      "By crashing the browser to protect the user",
+      "By scanning the script for malicious keywords like 'alert'"
+    ],
+    "correctAnswer": "By checking the script source against the 'script-src' whitelist",
+    "personalReflection": "CSP doesn't care if the code exists in your HTML; it only cares if the source of that code is 'Acceptable'.",
+    "tag": "CSP"
+  },
+  {
+    "id": 24,
+    "question": "What happens if an API response (Content-Type: application/json) contains a 'Content-Security-Policy' header?",
+    "options": [
+      "The browser applies the policy to the entire website",
+      "The browser ignores the header because it is not an HTML document",
+      "The browser stops the React app from rendering",
+      "The browser saves the policy for the next page load"
+    ],
+    "correctAnswer": "The browser ignores the header because it is not an HTML document",
+    "personalReflection": "CSP is document-based. It only triggers when the browser parses HTML/DOM environments.",
+    "tag": "CSP"
+  },
+  {
+    "id": 25,
+    "question": "In the CSP workflow, which entity is responsible for 'Enforcing' the rules and blocking the unapproved domains?",
+    "options": [
+      "The Web Server (e.g., Nginx)",
+      "The React Application code",
+      "The User's Browser engine",
+      "The Database"
+    ],
+    "correctAnswer": "The User's Browser engine",
+    "personalReflection": "The server gives the orders (Header), but the browser is the bouncer that actually stops the action.",
+    "tag": "CSP"
   }
 ]
