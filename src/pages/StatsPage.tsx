@@ -85,7 +85,6 @@ export function StatsPage() {
               <h1 className="text-white font-bold text-lg leading-none">
                 Your Stats
               </h1>
-              <p className="text-slate-500 text-xs mt-0.5">Last 30 days</p>
             </div>
           </div>
           <Link
