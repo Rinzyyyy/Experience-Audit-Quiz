@@ -1,5 +1,5 @@
-import { motion } from 'motion/react';
-import { CheckCircle2, XCircle } from 'lucide-react';
+import { motion } from "motion/react";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 interface OptionButtonProps {
   option: string;
@@ -10,7 +10,7 @@ interface OptionButtonProps {
   onClick: () => void;
 }
 
-const LABELS = ['A', 'B', 'C', 'D'];
+const LABELS = ["A", "B", "C", "D"];
 
 export function OptionButton({
   option,
@@ -20,30 +20,30 @@ export function OptionButton({
   isCorrect,
   onClick,
 }: OptionButtonProps) {
-  let borderClass = 'border-slate-700 hover:border-slate-500';
-  let bgClass = 'bg-slate-900/40 hover:bg-slate-700/40';
-  let textClass = 'text-slate-300';
-  let labelBg = 'bg-slate-800 text-slate-400';
+  let borderClass = "border-slate-700 hover:border-slate-500";
+  let bgClass = "bg-slate-900/40 hover:bg-slate-700/40";
+  let textClass = "text-slate-300";
+  let labelBg = "bg-slate-800 text-slate-400";
   let Icon: React.ReactNode = null;
 
   if (isAnswered) {
     if (isCorrect) {
-      borderClass = 'border-emerald-500/70';
-      bgClass = 'bg-emerald-500/10';
-      textClass = 'text-emerald-300';
-      labelBg = 'bg-emerald-500/20 text-emerald-400';
-      Icon = <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />;
+      borderClass = "border-teal-500/70";
+      bgClass = "bg-cyan-500/10";
+      textClass = "text-teal-300";
+      labelBg = "bg-teal-500/20 text-teal-400";
+      Icon = <CheckCircle2 className="w-4 h-4 text-teal-500 shrink-0" />;
     } else if (isSelected) {
-      borderClass = 'border-red-500/70';
-      bgClass = 'bg-red-500/10';
-      textClass = 'text-red-300';
-      labelBg = 'bg-red-500/20 text-red-400';
+      borderClass = "border-red-500/70";
+      bgClass = "bg-red-500/10";
+      textClass = "text-red-300";
+      labelBg = "bg-red-500/20 text-red-400";
       Icon = <XCircle className="w-4 h-4 text-red-400 shrink-0" />;
     } else {
-      borderClass = 'border-slate-700/40';
-      bgClass = 'bg-slate-900/20';
-      textClass = 'text-slate-500';
-      labelBg = 'bg-slate-800/50 text-slate-600';
+      borderClass = "border-slate-700/40";
+      bgClass = "bg-slate-900/20";
+      textClass = "text-slate-500";
+      labelBg = "bg-slate-800/50 text-slate-600";
     }
   }
 
@@ -62,7 +62,9 @@ export function OptionButton({
       >
         {LABELS[index]}
       </span>
-      <span className={`text-sm leading-snug flex-1 transition-colors duration-200 ${textClass}`}>
+      <span
+        className={`text-sm leading-snug flex-1 transition-colors duration-200 ${textClass}`}
+      >
         {option}
       </span>
       {Icon}

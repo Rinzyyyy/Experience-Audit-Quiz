@@ -31,12 +31,12 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
       initial="initial"
       animate="animate"
       exit="exit"
-      className="w-full max-w-xl bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden"
+      className="w-full max-w-xl bg-mist-800/50 rounded-2xl shadow-2xl border border-slate-700 overflow-hidden"
     >
       {/* Progress bar */}
-      <div className="h-1 bg-slate-700">
+      <div className="h-1 bg-stone-700">
         <motion.div
-          className="h-full bg-blue-500"
+          className="h-full bg-indigo-300"
           animate={{ width: `${progressPercent}%` }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         />
@@ -49,7 +49,7 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
             <span className="text-xs font-semibold tracking-widest text-slate-400 uppercase">
               Question
             </span>
-            <span className="text-xs font-bold text-blue-400">
+            <span className="text-xs font-bold text-indigo-300">
               {currentIndex + 1}
               <span className="text-slate-600"> / {quizQuestions.length}</span>
             </span>
@@ -57,12 +57,19 @@ export function QuizScreen({ state, dispatch }: QuizScreenProps) {
           <TimerRing timeLeft={timeLeft} />
         </div>
 
+        {/* tag */}
+        <div className="flex items-center mb-2 w-fit border border-indigo-300/30 rounded-full py-1 px-2">
+          <span className="text-[10px] text-slate-400">
+            {question.id}-{question.tag}
+          </span>
+        </div>
+
         {/* Question text */}
         <motion.h2
           key={`q-${currentIndex}`}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-lg font-semibold text-white leading-snug mb-6"
+          className="text-lg font-semibold text-slate-300 leading-snug mb-6"
         >
           {question.question}
         </motion.h2>
