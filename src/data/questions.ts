@@ -334,22 +334,6 @@ export const questions: Question[] = [
     tag: "JWT",
   },
   {
-    id: 25,
-    question:
-      "In an e-commerce site, if you must use LocalStorage for the JWT, what is the best secondary defense to limit damage from theft?",
-    options: [
-      "Storing the user's password in LocalStorage as well.",
-      "Using very short-lived Access Tokens and Refresh Token Rotation.",
-      "Disabling HTTPS to speed up the connection.",
-      "Encoding the JWT in Base64 twice.",
-    ],
-    correctAnswer:
-      "Using very short-lived Access Tokens and Refresh Token Rotation.",
-    personalReflection:
-      "If a token is stolen from LocalStorage via XSS, a short expiry (e.g., 5 mins) ensures the attacker has a very small window to use it.",
-    tag: "JWT",
-  },
-  {
     id: 26,
     question:
       "Where is the most secure place to define the CSP 'Acceptable Domains' list for a production React application?",
@@ -426,5 +410,330 @@ export const questions: Question[] = [
     personalReflection:
       "The server gives the orders (Header), but the browser is the bouncer that actually stops the action.",
     tag: "CSP",
+  },
+  {
+    id: 31,
+    question:
+      "Which of the following is a key difference between a 'type' and an 'interface'?",
+    options: [
+      "Interfaces cannot be used for objects",
+      "Types can be merged using declaration merging, interfaces cannot",
+      "Interfaces can be merged using declaration merging, types cannot",
+      "Types are only for primitive values",
+    ],
+    correctAnswer:
+      "Interfaces can be merged using declaration merging, types cannot",
+    personalReflection:
+      "Declaration merging is a unique superpower of interfaces. If you define the same interface twice, TS combines them—this is why they are preferred for public API libraries.",
+    tag: "TypeScript",
+  },
+  {
+    id: 32,
+    question:
+      "What is the primary advantage of using a Union Type in TypeScript?",
+    options: [
+      "It allows a variable to hold only one specific type",
+      "It allows a variable to be one of several types",
+      "It merges two objects into one",
+      "It is used for loops",
+    ],
+    correctAnswer: "It allows a variable to be one of several types",
+    personalReflection:
+      "Union types are the bread and butter of TS flexibility; they allow us to handle dynamic data while keeping the safety rails on.",
+    tag: "TypeScript",
+  },
+  {
+    id: 33,
+    question:
+      "How do you define an Interface for an object with a string key and a number value?",
+    options: [
+      "{ key: string, value: number }",
+      "interface Map { [key: string]: number; }",
+      "interface Map { string: number }",
+      "type Map = string[]",
+    ],
+    correctAnswer: "interface Map { [key: string]: number; }",
+    personalReflection:
+      "Index signatures are vital when you don't know the exact names of the properties beforehand, like when parsing API responses.",
+    tag: "TypeScript",
+  },
+  {
+    id: 34,
+    question:
+      "What does the 'readonly' modifier do when applied to a property?",
+    options: [
+      "Makes the property invisible",
+      "Prevents the property from being assigned a value after initialization",
+      "Allows the property to be changed only by the constructor",
+      "Automatically makes the property a string",
+    ],
+    correctAnswer:
+      "Prevents the property from being assigned a value after initialization",
+    personalReflection:
+      "Immutability is a great pattern for preventing bugs. Using readonly helps ensure that your configuration objects stay exactly how you intended.",
+    tag: "TypeScript",
+  },
+  {
+    id: 35,
+    question: "In TypeScript, what is 'Type Narrowing'?",
+    options: [
+      "Converting a string to a number",
+      "Reducing a union type to a more specific type using logic",
+      "Making the code file smaller",
+      "Removing types from a project",
+    ],
+    correctAnswer: "Reducing a union type to a more specific type using logic",
+    personalReflection:
+      "This is where the TypeScript compiler shows its intelligence—it watches your if statements and typeof checks to know exactly what a variable is at any given line.",
+    tag: "TypeScript",
+  },
+  {
+    id: 31,
+    question:
+      "Which of the following is true regarding 'WeakMap' in JavaScript?",
+    options: [
+      "Keys must be strings",
+      "Keys are weakly held and can be garbage collected if no other references exist",
+      "It is enumerable using for...of loops",
+      "It has a .size property to track elements",
+    ],
+    correctAnswer:
+      "Keys are weakly held and can be garbage collected if no other references exist",
+    personalReflection:
+      "WeakMaps are essential for preventing memory leaks when associating metadata with objects, as they don't prevent the object from being cleared from memory.",
+    tag: "JavaScript",
+  },
+  {
+    id: 32,
+    question:
+      "What is the primary difference between a 'Worker' (Web Worker) and the main thread in JS?",
+    options: [
+      "Workers can access the DOM directly",
+      "Workers run on a separate thread and communicate via message passing",
+      "Workers share the same memory space as the main thread",
+      "Workers are only used for network requests",
+    ],
+    correctAnswer:
+      "Workers run on a second thread and communicate via message passing",
+    personalReflection:
+      "Web Workers are the key to 'multi-threaded' JS. Use them for heavy computations (like image processing) to keep your UI thread buttery smooth.",
+    tag: "JavaScript",
+  },
+  {
+    id: 33,
+    question:
+      "In the context of the Event Loop, when does the browser typically perform UI rendering?",
+    options: [
+      "After every single microtask",
+      "Before the microtask queue is cleared",
+      "Usually after the microtask queue is empty and before the next macrotask",
+      "Only when the call stack has more than 10 functions",
+    ],
+    correctAnswer:
+      "Usually after the microtask queue is empty and before the next macrotask",
+    personalReflection:
+      "This is why infinite microtask loops (like a recursive Promise) can freeze the UI—the browser never gets the 'gap' it needs to paint the screen.",
+    tag: "JavaScript",
+  },
+  {
+    id: 34,
+    question:
+      "What is the 'Double Mounting' behavior in React 18's Strict Mode (Development)?",
+    options: [
+      "A bug in the React engine",
+      "React mounts, unmounts, and remounts components to ensure effects are resilient",
+      "It renders the component twice to compare virtual DOM performance",
+      "It happens only when using Concurrent features",
+    ],
+    correctAnswer:
+      "React mounts, unmounts, and remounts components to ensure effects are resilient",
+    personalReflection:
+      "While annoying at first, this helps you catch 'cleanup' bugs in useEffect that would otherwise lead to memory leaks in production.",
+    tag: "React",
+  },
+  {
+    id: 35,
+    question: "How does 'useDeferredValue' improve user experience in React?",
+    options: [
+      "It speeds up the execution of a function",
+      "It allows you to delay re-rendering a non-urgent part of the UI",
+      "It caches a value in LocalStorage automatically",
+      "It prevents a component from ever re-rendering",
+    ],
+    correctAnswer:
+      "It allows you to delay re-rendering a non-urgent part of the UI",
+    personalReflection:
+      "Use this when you have a heavy UI part (like a large list) that depends on a fast-changing input. It keeps the typing feel responsive while the list catches up.",
+    tag: "React",
+  },
+  {
+    id: 36,
+    question:
+      "In React's 'Concurrent Rendering', what does 'Transitions' (useTransition) allow you to do?",
+    options: [
+      "Animate CSS properties",
+      "Mark a state update as non-urgent so it can be interrupted",
+      "Navigate between routes faster",
+      "Sync state between two different browser tabs",
+    ],
+    correctAnswer: "Mark a state update as non-urgent so it can be interrupted",
+    personalReflection:
+      "Transitions allow React to keep the current UI interactive even while a heavy background render is happening. It's a game-changer for complex dashboards.",
+    tag: "React",
+  },
+  {
+    id: 37,
+    question:
+      "What is the behavior of a 'Server Action' in Next.js when called from a Client Component?",
+    options: [
+      "It runs a local fetch request to an API route",
+      "It executes on the server as a POST request with encrypted data",
+      "It serializes the entire DOM and sends it to the server",
+      "It can only be used to read data, not write it",
+    ],
+    correctAnswer:
+      "It executes on the server as a POST request with encrypted data",
+    personalReflection:
+      "Server Actions reduce boilerplate by removing the need to manually write fetch() and API routes. They bring a 'RPC-like' feel to modern web dev.",
+    tag: "Next.js",
+  },
+  {
+    id: 38,
+    question:
+      "In the Next.js App Router, what is the 'Streaming' mechanism used for?",
+    options: [
+      "Video playback optimization",
+      "Progressively rendering parts of the UI as data becomes available",
+      "Sending logs to a third-party service",
+      "Real-time chat using WebSockets",
+    ],
+    correctAnswer:
+      "Progressively rendering parts of the UI as data becomes available",
+    personalReflection:
+      "Streaming (via Suspense) prevents the 'all-or-nothing' loading state. You can show the header immediately while the slow database parts 'stream' in later.",
+    tag: "Next.js",
+  },
+  {
+    id: 39,
+    question:
+      "Which Next.js configuration property allows you to use 'Edge Runtime' for specific routes?",
+    options: [
+      "export const runtime = 'edge'",
+      "config.edge = true",
+      "next.config.js { edge: true }",
+      "useEdgeRuntime()",
+    ],
+    correctAnswer: "export const runtime = 'edge'",
+    personalReflection:
+      "The Edge Runtime is great for low-latency tasks like geolocation or A/B testing, but remember it has a limited set of Node.js APIs available.",
+    tag: "Next.js",
+  },
+
+  {
+    id: 40,
+    question:
+      "What is the purpose of the 'key' prop when rendering a list in React?",
+    options: [
+      "To style the element",
+      "To help React identify which items have changed, been added, or removed",
+      "To bind data to the DOM",
+      "To create a unique CSS class",
+    ],
+    correctAnswer:
+      "To help React identify which items have changed, been added, or removed",
+    personalReflection:
+      "Keys are crucial for the Reconciliation process. Without unique keys, React might unnecessarily re-render everything in a list, hurting performance.",
+    tag: "React",
+  },
+  {
+    id: 41,
+    question:
+      "Which React hook would you use to store a mutable value that does not cause a re-render when updated?",
+    options: ["useState", "useMemo", "useRef", "useReducer"],
+    correctAnswer: "useRef",
+    personalReflection:
+      "useRef is like a 'box' that holds a value for the full lifetime of the component. It's perfect for accessing DOM elements or storing interval IDs.",
+    tag: "React",
+  },
+  {
+    id: 42,
+    question: "What does the 'useContext' hook solve in a React application?",
+    options: [
+      "Prop drilling",
+      "State persistence",
+      "API fetching",
+      "Memory leaks",
+    ],
+    correctAnswer: "Prop drilling",
+    personalReflection:
+      "Context provides a way to pass data through the component tree without having to manually pass props down at every level.",
+    tag: "React",
+  },
+  {
+    id: 43,
+    question: "In Next.js, what is the 'public' folder used for?",
+    options: [
+      "Server-side code",
+      "Static assets like images and fonts",
+      "Public API routes",
+      "Shared React components",
+    ],
+    correctAnswer: "Static assets like images and fonts",
+    personalReflection:
+      "Files in the public folder can be referenced starting from the base URL (/), making it the home for your favicons and brand assets.",
+    tag: "Next.js",
+  },
+  {
+    id: 44,
+    question: "What is 'Hydration' in the context of Next.js?",
+    options: [
+      "Cleaning up unused memory",
+      "The process of attaching event listeners to static HTML",
+      "Downloading data from a database",
+      "Optimizing images for mobile",
+    ],
+    correctAnswer: "The process of attaching event listeners to static HTML",
+    personalReflection:
+      "Hydration is what turns a 'dry' static page into an interactive 'wet' React application. If you see hydration errors, your server and client HTML don't match!",
+    tag: "Next.js",
+  },
+  {
+    id: 45,
+    question:
+      "What is the default rendering environment for components inside the 'app' directory in Next.js?",
+    options: [
+      "Client Components",
+      "Server Components",
+      "Static Components",
+      "Edge Components",
+    ],
+    correctAnswer: "Server Components",
+    tag: "Next.js",
+    personalReflection:
+      "By defaulting to Server Components, Next.js reduces the amount of JavaScript sent to the browser, resulting in faster initial page loads.",
+  },
+  {
+    id: 46,
+    question:
+      "Which of the following methods is used to merge two or more arrays into a new array?",
+    options: ["push()", "join()", "concat()", "slice()"],
+    correctAnswer: "concat()",
+    personalReflection:
+      "While concat() is the classic method, the modern spread operator [...arr1, ...arr2] has become the industry standard for its readability.",
+    tag: "JavaScript",
+  },
+  {
+    id: 47,
+    question: "What is a 'Closure' in JavaScript?",
+    options: [
+      "A way to close a browser tab",
+      "A function that has access to its outer function's scope",
+      "The end of a loop",
+      "A private class method",
+    ],
+    correctAnswer: "A function that has access to its outer function's scope",
+    personalReflection:
+      "Closures allow for powerful patterns like data privacy and factories. They 'remember' the environment where they were created.",
+    tag: "JavaScript",
   },
 ];
